@@ -8,6 +8,8 @@ var _morgan = _interopRequireDefault(require("morgan"));
 
 var _bodyParser = _interopRequireDefault(require("body-parser"));
 
+var _index = _interopRequireDefault(require("./routes/index"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var hostname = '127.0.0.1';
@@ -20,7 +22,8 @@ app.use((0, _morgan["default"])('dev'));
 app.use(_bodyParser["default"].json());
 app.use(_bodyParser["default"].urlencoded({
   extended: false
-}));
+})); // routes(app);
+
 app.get('*', function (req, res) {
   res.status(200).send({
     message: 'Welcome to default TodoApp API route'
