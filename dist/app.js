@@ -12,6 +12,7 @@ var _index = _interopRequireDefault(require("./routes/index"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+// import routes from "./routes/index";
 var hostname = '127.0.0.1';
 var port = process.env.PORT || 3000;
 var app = (0, _express["default"])();
@@ -22,9 +23,13 @@ app.use((0, _morgan["default"])('dev'));
 app.use(_bodyParser["default"].json());
 app.use(_bodyParser["default"].urlencoded({
   extended: false
-})); // routes(app);
+}));
+app.use(_index["default"]); // routes(app);
 
-app.get('*', function (req, res) {
+app.get('/soji', function (req, res) {
+  res.send('Olisoji');
+});
+app.get('/', function (req, res) {
   res.status(200).send({
     message: 'Welcome to default TodoApp API route'
   });
