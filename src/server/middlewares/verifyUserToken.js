@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import model from '../models';
+import displayErrorMsg from './displayErrorMsg';
 
 const { User } = model;
 
@@ -21,12 +22,14 @@ const verifyUserToken = (req, res, next) => {
   if (!token) {
     const err = Error('User authorization token is required');
     err.statusCode = 401;
+    displayErrorMsg(err, res);
     return next(err);
   }
 
   if (token === undefined || token === null) {
     const err = Error('User authorization token is required');
     err.statusCode = 401;
+    displayErrorMsg(err, res);
     return next(err);
   }
 
@@ -38,10 +41,12 @@ const verifyUserToken = (req, res, next) => {
     if (err.name === 'TokenExpiredError') {
       const error = Error('Expired user authorization token');
       error.statusCode = 401;
+      displayErrorMsg(err, res);
       return next(error);
     }
     const error = Error('Invalid user authorization token');
     error.statusCode = 401;
+    displayErrorMsg(error, res);
     return next(error);
   }
   const { id } = decoded.id;
@@ -58,5 +63,4 @@ const verifyUserToken = (req, res, next) => {
     })
     .catch(e => res.status(400).send({ status: 500, error: `Bad request ${e}` }));
 };
-
 export default verifyUserToken;
