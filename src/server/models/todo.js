@@ -5,23 +5,23 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: {
         args: false,
-        message: 'Please enter title'
-      }
+        message: 'Please enter title',
+      },
     },
     description: {
       type: DataTypes.STRING,
       allowNull: {
         args: false, 
-        message: 'Please enter description'
-      }
+        message: 'Please enter description',
+      },
     },
     completed: {
       type: DataTypes.BOOLEAN,
       allowNull: {
-        args: false
-      }
+        args: false,
+      },
     },
-    userId: DataTypes.INTEGER
+    userId: DataTypes.INTEGER,
   }, {});
   Todo.associate = function(models) {
     // associations can be defined here
