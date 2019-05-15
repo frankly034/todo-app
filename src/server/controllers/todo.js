@@ -31,5 +31,18 @@ class Todos {
       }))
       .catch(error => res.status(500).send(error));
   }
+
+  static readATodo(req, res) {
+    Todo.findOne({
+      where: {
+        id: req.params.id,
+      },
+    })
+      .then(todos => res.status(200).json({
+        status: 200,
+        data: todos,
+      }))
+      .catch(error => res.status(500).send(error));
+  }
 }
 export default Todos;
