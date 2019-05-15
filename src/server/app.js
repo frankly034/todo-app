@@ -3,6 +3,7 @@ import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import router from './routes';
+import middlewares from './middlewares';
 
 const hostname = '127.0.0.1';
 const port = process.env.PORT || 3000;
@@ -19,7 +20,7 @@ app.get('/', (req, res) => {
     message: 'Welcome to TodoApp',
   });
 });
-
+app.get('/checkToken', middlewares.verifyUserToken, middlewares.checkAuth);
 app.all('*', (req, res) => {
   res.status(404).send({
     message: 'This URL does not exist',
