@@ -33,7 +33,7 @@ const verifyUserToken = (req, res, next) => {
     error.statusCode = 401;
     return displayAuthError(err, res);
   }
-  const { id } = decoded.id;
+  const { id } = decoded.payload;
   return User.findOne({
     where: {
       id,
@@ -46,7 +46,7 @@ const verifyUserToken = (req, res, next) => {
           message: 'Invalid user authorization token',
         });
       }
-      req.userId = decoded.id;
+      req.userId = id;
       return next();
     })
     .catch(e => res.status(400).send({ status: 500, error: `Bad request ${e}` }));

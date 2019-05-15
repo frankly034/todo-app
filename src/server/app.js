@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
     message: 'Welcome to TodoApp',
   });
 });
-app.get('/checkToken', middlewares.verifyUserToken, middlewares.checkAuth);
+app.all('/checkToken', middlewares.verifyUserToken, middlewares.checkAuth);
 app.all('*', (req, res) => {
   res.status(404).send({
     message: 'This URL does not exist',
