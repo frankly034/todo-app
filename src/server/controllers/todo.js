@@ -104,4 +104,4 @@ class Todos {
   }
 }
 
-export default Todo;
+export default Todos;
