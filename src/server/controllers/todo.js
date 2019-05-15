@@ -76,5 +76,32 @@ class Todos {
       })
       .catch(error => res.status(500).send(error));
   }
+
+  static modify(req, res) {
+    const { title, description } = req.body;
+    const { todoId } = req.params;
+    const { userId } = req;
+
+    return Todo.findOne({
+      where: {
+        user_id: userId,
+        id: todoId,
+      },
+    })
+      .then((todo) => {
+        if (!todo) { throw new Error('Todo not found.'); }
+        return todo.update({
+          title: title || todo.title,
+          description: description || todo.description,
+        });
+      })
+      .then(updatedTodo => res.status(200).send({
+        status: 200,
+        message: 'Todo successfully updated',
+        data: updatedTodo,
+      }))
+      .catch(e => res.status(400).send({ status: 400, message: `Failed to find the actual todo ${e}` }));
+  }
 }
-export default Todos;
+
+export default Todo;
