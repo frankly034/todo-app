@@ -23,5 +23,6 @@ module.exports = (sequelize, DataTypes) => {
       as: 'owner',
     });
   };
+
   return Todos;
 };

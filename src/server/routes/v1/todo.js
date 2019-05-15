@@ -4,8 +4,7 @@ import middlewares from '../../middlewares';
 
 const todo = express.Router();
 
-todo.get('/id', todoController.replyId);
-
 todo.post('/', middlewares.verifyUserToken, todoController.create);
+todo.get('/', middlewares.verifyUserToken, todoController.readAllTodos);
 
 export default todo;
