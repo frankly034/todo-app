@@ -1,17 +1,14 @@
 import model from '../../db/models';
 
-const { Todo } = model;
+const { Todos } = model;
 
-class Todos {
-  static replyId(req, res) {
-    return res.status(200).send({ message: 'Yay!!!' });
-  }
+class Todo {
 
   static create(req, res) {
     const { title, description, completed } = req.body;
-    const { userId } = req.params;
-    return Todo.create({
-      title, description, completed, userId,
+    const user_id = req.userId;
+    return Todos.create({
+      title, description, completed, user_id,
     })
       .then((todoData) => {
         res.status(201)
@@ -22,6 +19,26 @@ class Todos {
       })
       .catch(e => res.status(400).send({ status: 400, error: `Bad request ${e}` }));
   }
+
+  static modify(req, res) {
+    const { title, description, completed } = req.body;
+    const todoId = req.params.todoId;
+    return Todos.findByPk(todoId)
+      .then(todo => todo.update({
+        title: title || todo.title,
+        description: description || todo.description,
+        completed: completed || todo.completed,
+      }))
+      .then(updatedTodo => res.status(200).send({
+        status: 200,
+        message: 'Todo successfully updated',
+        data: updatedTodo
+      }))
+      .catch(e => res.status(404).send({
+        status: 404,
+        message: 'Todo not found.'
+      }));
+  }
 }
 
-export default Todos;
+export default Todo;

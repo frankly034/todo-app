@@ -3,8 +3,7 @@ import todoController from '../../controllers/todo';
 
 const todo = express.Router();
 
-todo.get('/id', todoController.replyId);
-
-todo.post('/:userId', todoController.create);
+todo.post('/', todoController.create);
+todo.patch('/:todoId', todoController.modify);
 
 export default todo;
