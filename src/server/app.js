@@ -15,17 +15,17 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(router);
 
 app.get('/', (req, res) => {
-    res.status(200).send({
-        message: "Welcome to TodoApp"
-    });
+  res.status(200).send({
+    message: 'Welcome to TodoApp',
+  });
 });
 
 app.all('*', (req, res) => {
-    res.status(404).send({
-        message: 'This URL does not exist'
-    });
+  res.status(404).send({
+    message: 'This URL does not exist'
+  });
 });
 
 server.listen(port, hostname, () =>{
-    console.log(`server running at http://${hostname}:${port}`);
+  console.log(`server running at http://${hostname}:${port}`);
 })

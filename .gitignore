@@ -1,4 +1,4 @@
 node_modules/
 src/server/config/config.json
 .DS_Store
-.DS_Store
+.env

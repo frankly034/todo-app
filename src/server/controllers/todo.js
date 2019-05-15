@@ -6,7 +6,7 @@ class Todos {
   static replyId(req, res) {
     return res.status(200).send({ message: 'Yay!!!' });
   }
-
+  
   static create(req, res) {
     const { title, description, completed } = req.body;
     const { userId } = req.params;
