@@ -46,5 +46,26 @@ class Todos {
       }))
       .catch(error => res.status(500).send(error));
   }
+
+  static modify(req, res) {
+    const { title, description, completed } = req.body;
+    const todoId = req.params.todoId;
+    return Todo.findByPk(todoId)
+      .then(todo => todo.update({
+        title: title || todo.title,
+        description: description || todo.description,
+        completed: completed || todo.completed,
+      }))
+      .then(updatedTodo => res.status(200).send({
+        status: 200,
+        message: 'Todo successfully updated',
+        data: updatedTodo
+      }))
+      .catch(e => res.status(404).send({
+        status: 404,
+        message: 'Todo not found.'
+      }));
+  }
 }
+
 export default Todos;
