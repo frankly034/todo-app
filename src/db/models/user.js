@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
       user.setDataValue('password', hash);
     })
     .catch((err) => {
-      console.log(err);
+      throw err;
     }));
   return User;
 };
