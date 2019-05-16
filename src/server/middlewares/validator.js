@@ -32,5 +32,25 @@ class Validate {
       DisplayError(err, res);
     }
   }
+
+  static createTodo (req, res, next){
+    const { title, description, completed } = req.body;
+    const data = { title, description, completed };
+    const rules = {
+      title: 'required|string', 
+      description: 'required|string', 
+      completed: 'required|max:5'
+    };
+    const validation = new Validator(data, rules);
+    if(validation.passes()){
+      next();
+    } else {
+      const err = {
+        statusCode: 400,
+        message: validation.errors.all()
+      };
+      DisplayError(err, res);
+    }
+  }
 }
 export default Validate;
