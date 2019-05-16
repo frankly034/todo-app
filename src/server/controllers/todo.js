@@ -7,14 +7,16 @@ class Todos {
     const { title, description, completed } = req.body;
     const { userId } = req.params;
     return Todo.create({
-      title, description, completed, userId,
+      title,
+      description,
+      completed,
+      userId,
     })
       .then((todoData) => {
-        res.status(201)
-          .send({
-            status: 201,
-            data: todoData,
-          });
+        res.status(201).send({
+          status: 201,
+          data: todoData,
+        });
       })
       .catch(e => res.status(400).send({ status: 400, error: `Bad request ${e}` }));
   }
