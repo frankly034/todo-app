@@ -48,23 +48,31 @@ class Todos {
   }
 
   static modify(req, res) {
-    const { title, description, completed } = req.body;
+    const { title, description } = req.body;
     const todoId = req.params.todoId;
-    return Todo.findByPk(todoId)
-      .then(todo => todo.update({
-        title: title || todo.title,
-        description: description || todo.description,
-        completed: completed || todo.completed,
-      }))
+    const userId = req.userId;
+
+    return Todo.findOne({
+      where: {
+        user_id: userId,
+        id: todoId,
+      }
+    })
+      .then(todo => {
+        if (!todo) {
+          throw new Error ('Todo not found.')
+        }
+        return todo.update({
+          title: title || todo.title,
+          description: description || todo.description
+        })
+      })
       .then(updatedTodo => res.status(200).send({
         status: 200,
         message: 'Todo successfully updated',
         data: updatedTodo
       }))
-      .catch(e => res.status(404).send({
-        status: 404,
-        message: 'Todo not found.'
-      }));
+      .catch(e => res.status(400).send({ status: 400, message: 'Failed to find the actual todo ' + e }))
   }
 }
 
