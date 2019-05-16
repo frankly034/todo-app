@@ -46,5 +46,35 @@ class Todos {
       }))
       .catch(error => res.status(500).send(error));
   }
+
+  static updateCompleted(req, res) {
+    const todoId = req.params.id;
+    const { userId } = req;
+    Todo.update(
+      {
+        completed: true,
+      },
+      {
+        where: {
+          id: todoId,
+          user_id: userId,
+        },
+      },
+    )
+      .then(([todo]) => {
+        if (todo) {
+          res.status(200).json({
+            status: 200,
+            data: `Todo with id ${todoId} is marked completed successfully`,
+          });
+        } else {
+          res.status(400).json({
+            error: 400,
+            message: `Todo with the id ${todoId} does not exist`,
+          });
+        }
+      })
+      .catch(error => res.status(500).send(error));
+  }
 }
 export default Todos;
