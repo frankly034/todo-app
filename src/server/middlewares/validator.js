@@ -52,5 +52,24 @@ class Validate {
       DisplayError(err, res);
     }
   }
+
+  static checkTodoIdParam (req, res, next) {
+    const todoId = req.params.todoId;
+    const data = { todoId };
+
+    const rules = {
+      todoId: 'required|integer'
+    };
+    const validation = new Validator(data, rules);
+    if(validation.passes()){
+      next();
+    } else {
+      const err = {
+        statusCode: 400,
+        message: validation.errors.all()
+      };
+      DisplayError(err, res);
+    }
+  }
 }
 export default Validate;
