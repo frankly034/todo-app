@@ -39,6 +39,41 @@ class auth {
       })
       .catch(e => res.status(400).send({ status: 400, error: `Bad request ${e}` }));
   }
+
+  static login(req, res) {
+    const { password } = req.body;
+    
+    let { email } = req.body;
+    email = email.toLowerCase();
+
+    return User.findOne({ where: { email } })
+      .then((foundUser) => {
+        if (!foundUser) {
+          return res.status(404).json({
+            status: 404,
+            message: "User with this Email not found",
+          })
+        }
+
+        Utility.comparePassword(password, foundUser.password)
+          .then((result) => {
+            if (result === false) {
+              return res.status(400).json({
+                status: 400,
+                message: "Incorrect password",
+              })
+            }
+
+            const token = Utility.getToken({ email });
+            res.status(200).json({
+              status: 200,
+              message: "Login Successful",
+              token,
+            })
+          })
+      })
+      .catch(e => res.status(400).send({ status: 400, error: `Bad request ${e}` }));
+  }
 }
 
 export default auth;

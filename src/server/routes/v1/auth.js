@@ -5,4 +5,6 @@ import middlewares from '../../middlewares';
 const auth = express.Router();
 auth.post('/signup', middlewares.validator.signup, authController.signup);
 
+auth.post('/login', middlewares.validator.login, authController.login);
+
 export default auth;
