@@ -55,10 +55,13 @@ class Validate {
 
   static checkTodoIdParam (req, res, next) {
     const todoId = req.params.todoId;
-    const data = { todoId };
+    const { title, description } = req.body;
+    const data = { title, description, todoId };
 
     const rules = {
-      todoId: 'required|integer'
+      todoId: 'required|integer',
+      title: 'string',
+      descritpion: 'string'
     };
     const validation = new Validator(data, rules);
     if(validation.passes()){
