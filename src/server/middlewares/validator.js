@@ -39,7 +39,7 @@ class Validate {
     const rules = {
       title: 'required|string', 
       description: 'required|string', 
-      completed: 'required|max:5'
+      completed: 'required|boolean'
     };
     const validation = new Validator(data, rules);
     if(validation.passes()){
@@ -54,7 +54,7 @@ class Validate {
   }
 
   static checkTodoIdParam (req, res, next) {
-    const todoId = req.params.todoId;
+    const { todoId } = req.params;
     const { title, description } = req.body;
     const data = { title, description, todoId };
 

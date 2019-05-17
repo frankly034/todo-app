@@ -5,7 +5,7 @@ const Todo = model.Todos;
 class Todos {
   static create(req, res) {
     const { title, description, completed } = req.body;
-    const { userId } = req.params;
+    const { userId }  = req;
     return Todo.create({
       title,
       description,
@@ -49,8 +49,8 @@ class Todos {
 
   static modify(req, res) {
     const { title, description } = req.body;
-    const todoId = req.params.todoId;
-    const userId = req.userId;
+    const { todoId } = req.params;
+    const { userId } = req;
 
     return Todo.findOne({
       where: {
