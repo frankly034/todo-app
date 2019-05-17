@@ -5,7 +5,7 @@ const Todo = model.Todos;
 class Todos {
   static create(req, res) {
     const { title, description, completed } = req.body;
-    const { userId } = req.params;
+    const { userId } = req;
     return Todo.create({
       title,
       description,
