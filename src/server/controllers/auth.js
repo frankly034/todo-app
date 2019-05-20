@@ -64,7 +64,9 @@ class auth {
               })
             }
 
-            const token = Utility.getToken({ email });
+            const id = foundUser.id;
+
+            const token = Utility.getToken({ id });
             res.status(200).json({
               status: 200,
               message: "Login Successful",
