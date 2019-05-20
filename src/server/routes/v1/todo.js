@@ -13,6 +13,6 @@ todo.patch(
   middlewares.validator.updateCompleted,
   todoController.updateCompleted,
 );
-todo.patch('/:todoId', middlewares.verifyUserToken, middlewares.validator.checkTodoIdParam, todoController.modify);
+// todo.patch('/:todoId', middlewares.verifyUserToken, middlewares.validator.checkTodoIdParam, todoController.modify);
 
 export default todo;
