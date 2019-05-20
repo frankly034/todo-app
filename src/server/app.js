@@ -30,3 +30,5 @@ app.all('*', (req, res) => {
 server.listen(port, hostname, () => {
   console.log(`server running at http://${hostname}:${port}`);
 });
+
+export default app;
