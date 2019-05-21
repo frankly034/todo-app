@@ -114,5 +114,22 @@ class Validate {
       DisplayError(err, res);
     }
   }
+
+  static getCompleted(req, res, next) {
+    const { isCompleted } = req.query;
+    const data = { isCompleted };
+    const rules = {
+      isCompleted: 'required|boolean',
+    };
+
+    const validation = new Validator(data, rules);
+    if (validation.passes()) return next();
+    const err = {
+        statusCode: 400,
+        message: validation.errors.all(),
+      };
+
+    DisplayError(err, res);
+  }
 }
 export default Validate;

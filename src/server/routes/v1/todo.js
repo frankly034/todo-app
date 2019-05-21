@@ -5,6 +5,7 @@ import middlewares from '../../middlewares';
 const todo = express.Router();
 
 todo.post('/', middlewares.verifyUserToken, middlewares.validator.createTodo, todoController.create);
+todo.get('/completed', middlewares.verifyUserToken, middlewares.validator.getCompleted, todoController.getCompleted,);
 todo.get('/', middlewares.verifyUserToken, todoController.readAllTodos);
 todo.get('/:id', middlewares.verifyUserToken, todoController.readATodo);
 todo.patch(
