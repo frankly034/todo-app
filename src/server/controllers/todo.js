@@ -102,6 +102,24 @@ class Todos {
       }))
       .catch(e => res.status(400).send({ status: 400, message: `Failed to find the actual todo ${e}` }));
   }
+
+  static getCompleted(req, res){
+    const {isCompleted } = req.query;
+    return Todo.findAll({
+      where: {
+        user_id: req.userId,
+        completed: isCompleted
+      }
+    })
+      .then((todoData) => {
+        res.status(200)
+          .send({
+            status: 200,
+            data: todoData,
+          });
+      })
+      .catch(e => res.status(400).send({ status: 400, error: `Bad request ${e}` }));
+  }
 }
 
 export default Todos;

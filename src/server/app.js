@@ -6,7 +6,7 @@ import router from './routes';
 import middlewares from './middlewares';
 
 const hostname = '127.0.0.1';
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const app = express();
 const server = http.createServer(app);
 
@@ -30,3 +30,5 @@ app.all('*', (req, res) => {
 server.listen(port, hostname, () => {
   console.log(`server running at http://${hostname}:${port}`);
 });
+
+export default app;
